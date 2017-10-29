@@ -10,13 +10,12 @@ import (
 )
 
 func main() {
-	router := product.NewRouter() // create routes
+	router := store.NewRouter() // create routes
 
 	// These two lines are important in order to allow access from the front-end side to the methods
 	allowedOrigins := handlers.AllowedOrigins([]string{"*"}) 
  	allowedMethods := handlers.AllowedMethods([]string{"GET", "POST", "DELETE", "PUT"})
 
 	// Launch server with CORS validations
- 	log.Fatal(http.ListenAndServe(":9000",
-  	handlers.CORS(allowedOrigins, allowedMethods)(router)))
+ 	log.Fatal(http.ListenAndServe(":8000", handlers.CORS(allowedOrigins, allowedMethods)(router)))
 }
