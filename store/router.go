@@ -21,6 +21,12 @@ type Routes []Route
 
 var routes = Routes {
     Route {
+        "Authentication",
+        "POST",
+        "/get-token",
+        controller.GetToken,
+    },
+    Route {
         "Index",
         "GET",
         "/",
@@ -30,13 +36,13 @@ var routes = Routes {
         "AddProduct",
         "POST",
         "/AddProduct",
-        controller.AddProduct,
+        AuthenticationMiddleware(controller.AddProduct),
     },
     Route {
         "UpdateProduct",
         "PUT",
         "/UpdateProduct",
-        controller.UpdateProduct,
+        AuthenticationMiddleware(controller.UpdateProduct),
     },
     // Get Product by {id}
     Route {
@@ -50,7 +56,7 @@ var routes = Routes {
         "DeleteProduct",
         "DELETE",
         "/deleteProduct/{id}",
-        controller.DeleteProduct,
+        AuthenticationMiddleware(controller.DeleteProduct),
     },
     // Search product with string
     Route {
