@@ -1,6 +1,7 @@
 package store
 
 import (
+    "log"
     "net/http"
     "github.com/gorilla/mux"
 )
@@ -28,26 +29,35 @@ var routes = Routes {
     Route {
         "AddProduct",
         "POST",
-        "/",
+        "/AddProduct",
         controller.AddProduct,
     },
     Route {
         "UpdateProduct",
         "PUT",
-        "/",
+        "/UpdateProduct",
         controller.UpdateProduct,
     },
+    // Get Product by {id}
+    Route {
+        "GetProduct",
+        "GET",
+        "/products/{id}",
+        controller.GetProduct,
+    },
+    // Delete Product by {id}
     Route {
         "DeleteProduct",
         "DELETE",
-        "/",
+        "/deleteProduct/{id}",
         controller.DeleteProduct,
     },
+    // Search product with string
     Route {
-        "QueryProduct",
+        "SearchProduct",
         "GET",
-        "/",
-        controller.DeleteProduct,
+        "/Search/{query}",
+        controller.SearchProduct,
     }}
 
 // NewRouter configures a new router to the API
@@ -55,7 +65,9 @@ func NewRouter() *mux.Router {
     router := mux.NewRouter().StrictSlash(true)
     for _, route := range routes { 
         var handler http.Handler
+        log.Println(route.Name)
         handler = route.HandlerFunc
+        
         router.
          Methods(route.Method).
          Path(route.Pattern).

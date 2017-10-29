@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"gopkg.in/mgo.v2"
+	"strings"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -18,6 +19,8 @@ const DBNAME = "store"
 
 // DOCNAME the name of the document
 const DOCNAME = "products"
+
+var productId = 10;
 
 // GetProducts returns the list of Products
 func (r Repository) GetProducts() Products {
@@ -39,26 +42,81 @@ func (r Repository) GetProducts() Products {
 	return results
 }
 
-// AddProduct inserts an Product in the DB
+// GetProductById returns a unique Product
+func (r Repository) GetProductById(id int) Product {
+	session, err := mgo.Dial(SERVER)
+
+	if err != nil {
+	 	fmt.Println("Failed to establish connection to Mongo server:", err)
+	}
+
+	defer session.Close()
+
+	c := session.DB(DBNAME).C(DOCNAME)
+	var result Product
+
+	fmt.Println("ID in GetProductById", id);
+
+	if err := c.FindId(id).One(&result); err != nil {
+	  	fmt.Println("Failed to write result:", err)
+	}
+
+	return result
+}
+
+// GetProductsByString takes a search string as input and returns products
+func (r Repository) GetProductsByString(query string) Products {
+	session, err := mgo.Dial(SERVER)
+
+	if err != nil {
+	 	fmt.Println("Failed to establish connection to Mongo server:", err)
+	}
+
+	defer session.Close()
+
+	c := session.DB(DBNAME).C(DOCNAME)
+	result := Products{}
+
+	// Logic to create filter
+	qs := strings.Split(query, " ")
+	and := make([]bson.M, len(qs))
+	for i, q := range qs {
+    	and[i] = bson.M{"title": bson.M{
+        	"$regex": bson.RegEx{Pattern: ".*" + q + ".*", Options: "i"},
+    	}}
+	}
+	filter := bson.M{"$and": and}
+
+	if err := c.Find(&filter).Limit(5).All(&result); err != nil {
+	  	fmt.Println("Failed to write result:", err)
+	}
+
+	return result
+}
+
+// AddProduct adds a Product in the DB
 func (r Repository) AddProduct(product Product) bool {
 	session, err := mgo.Dial(SERVER)
 	defer session.Close()
 
-	product.ID = bson.NewObjectId()
+	productId += 1
+	product.ID = productId
 	session.DB(DBNAME).C(DOCNAME).Insert(product)
 	if err != nil {
 		log.Fatal(err)
 		return false
 	}
 
+	fmt.Println("Added New Product ID- ", product.ID)
+
 	return true
 }
 
-// UpdateProduct updates an Product in the DB (not used for now)
+// UpdateProduct updates a Product in the DB
 func (r Repository) UpdateProduct(product Product) bool {
 	session, err := mgo.Dial(SERVER)
 	defer session.Close()
-	product.ID = bson.NewObjectId()
+
 	session.DB(DBNAME).C(DOCNAME).UpdateId(product.ID, product)
 	
 	if err != nil {
@@ -66,28 +124,23 @@ func (r Repository) UpdateProduct(product Product) bool {
 		return false
 	}
 
+	fmt.Println("Updated Product ID - ", product.ID)
+
 	return true
 }
 
-// DeleteProduct deletes an Product (not used for now)
-func (r Repository) DeleteProduct(id string) string {
+// DeleteProduct deletes an Product
+func (r Repository) DeleteProduct(id int) string {
 	session, err := mgo.Dial(SERVER)
 	defer session.Close()
 
-	// Verify id is ObjectId, otherwise bail
-	if !bson.IsObjectIdHex(id) {
-		return "NOT FOUND"
-	}
-
-	// Grab id
-	oid := bson.ObjectIdHex(id)
-
-	// Remove user
-	if err = session.DB(DBNAME).C(DOCNAME).RemoveId(oid); err != nil {
+	// Remove product
+	if err = session.DB(DBNAME).C(DOCNAME).RemoveId(id); err != nil {
 		log.Fatal(err)
 		return "INTERNAL ERR"
 	}
 
+	fmt.Println("Deleted Product ID - ", id)
 	// Write status
 	return "OK"
 }
