@@ -12,13 +12,13 @@ import (
 type Repository struct{}
 
 // SERVER the DB server
-const SERVER = "localhost:27017"
+const SERVER = "mongodb://gautam:gautam@ds157233.mlab.com:57233/dummystore"
 
 // DBNAME the name of the DB instance
-const DBNAME = "store"
+const DBNAME = "dummystore"
 
-// DOCNAME the name of the document
-const DOCNAME = "products"
+// COLLECTION is the name of the collection in DB
+const COLLECTION = "store"
 
 var productId = 10;
 
@@ -32,7 +32,7 @@ func (r Repository) GetProducts() Products {
 
 	defer session.Close()
 
-	c := session.DB(DBNAME).C(DOCNAME)
+	c := session.DB(DBNAME).C(COLLECTION)
 	results := Products{}
 
 	if err := c.Find(nil).All(&results); err != nil {
@@ -52,7 +52,7 @@ func (r Repository) GetProductById(id int) Product {
 
 	defer session.Close()
 
-	c := session.DB(DBNAME).C(DOCNAME)
+	c := session.DB(DBNAME).C(COLLECTION)
 	var result Product
 
 	fmt.Println("ID in GetProductById", id);
@@ -74,7 +74,7 @@ func (r Repository) GetProductsByString(query string) Products {
 
 	defer session.Close()
 
-	c := session.DB(DBNAME).C(DOCNAME)
+	c := session.DB(DBNAME).C(COLLECTION)
 	result := Products{}
 
 	// Logic to create filter
@@ -101,7 +101,7 @@ func (r Repository) AddProduct(product Product) bool {
 
 	productId += 1
 	product.ID = productId
-	session.DB(DBNAME).C(DOCNAME).Insert(product)
+	session.DB(DBNAME).C(COLLECTION).Insert(product)
 	if err != nil {
 		log.Fatal(err)
 		return false
@@ -117,7 +117,7 @@ func (r Repository) UpdateProduct(product Product) bool {
 	session, err := mgo.Dial(SERVER)
 	defer session.Close()
 
-	session.DB(DBNAME).C(DOCNAME).UpdateId(product.ID, product)
+	session.DB(DBNAME).C(COLLECTION).UpdateId(product.ID, product)
 	
 	if err != nil {
 		log.Fatal(err)
@@ -135,7 +135,7 @@ func (r Repository) DeleteProduct(id int) string {
 	defer session.Close()
 
 	// Remove product
-	if err = session.DB(DBNAME).C(DOCNAME).RemoveId(id); err != nil {
+	if err = session.DB(DBNAME).C(COLLECTION).RemoveId(id); err != nil {
 		log.Fatal(err)
 		return "INTERNAL ERR"
 	}
