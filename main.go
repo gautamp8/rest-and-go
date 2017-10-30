@@ -5,6 +5,7 @@ package main
 import (
  	"log"
  	"net/http"
+ 	"os"
 	"github.com/gorilla/handlers"
 	"Bingo/store"
 )
@@ -17,5 +18,5 @@ func main() {
  	allowedMethods := handlers.AllowedMethods([]string{"GET", "POST", "DELETE", "PUT"})
 
 	// Launch server with CORS validations
- 	log.Fatal(http.ListenAndServe(":8000", handlers.CORS(allowedOrigins, allowedMethods)(router)))
+ 	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), handlers.CORS(allowedOrigins, allowedMethods)(router)))
 }
