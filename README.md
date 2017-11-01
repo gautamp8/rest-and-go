@@ -7,10 +7,10 @@ A basic online store API written to learn Go Programming Language
 
 This API is a pretty basic implementation of an online(e-commerce) store.
 - You can perform basic CRUD(CREATE, READ, UPDATE and DELETE) operations
-- SEARCH on a predefined database of products. 
-- Only Authenticated users can Add, Update and Delete products from database.
-- - Authentication is based on JWT(JSON web Tokens) Tokens
-- API is backed by a predefined MongoDB database hosted on [mLab](https://mLab.com)
+- SEARCH on a predefined database of products 
+- Only Authenticated users can Add, Update and Delete products from database
+- Authentication is based on JWT(JSON web Tokens) Tokens
+- API is backed by a predefined Mongo DB database hosted on [mLab](https://mLab.com)
 - This API also lives on [Heroku](https://www.heroku.com) - https://gruesome-monster-22811.herokuapp.com/ 
 
 See [API Documentation and Usage](#api-documentation-and-usage) below on how to use it.
@@ -72,10 +72,10 @@ $ go get "github.com/gorilla/mux"
 $ go get "github.com/gorilla/context"
 $ go get "github.com/gorilla/handlers"
 
-// mgo library for handling MONGO DB
+// mgo library for handling Mongo DB
 $ go get "gopkg.in/mgo.v2"
 ```
-Yay! Now we're ready to run the API :tada:
+Yay! Now we're ready to run the API :tada: <br>
 8. Type `export PORT=8000` in Terminal and open http://localhost:8000 in your browser to see the products.
 
 ## API Documentation and Usage
