@@ -41,14 +41,14 @@ It is **recommended** to install some extension to beautify JSON(like [JSON Form
 ```sh
 BASE_URL = "http://localhost:$PORT"
 'OR'
-BASE_URL = "https://gruesome-monster-22811.herokuapp.com/"
+BASE_URL = https://gruesome-monster-22811.herokuapp.com/
 ```
 
-### VIEW Products
+### 1. VIEW Products
 
-**ENDPOINT NAME** - Index
-**METHOD** - GET
-**URL** PATTERN - /
+**ENDPOINT NAME** - Index      \n
+**METHOD** - GET               \n
+**URL** PATTERN - /            \n
 
 **USAGE** 
 - Open BASE_URL in browser
@@ -57,18 +57,17 @@ BASE_URL = "https://gruesome-monster-22811.herokuapp.com/"
 curl -X GET BASE_URL
 ```
 
-**EXPECTED RESPONSE** - JSON containing all the products in database
+**EXPECTED RESPONSE** - JSON containing all the products in database \n
 
 **Example**
 
 
 
-### VIEW Product with a particular ID
+### 2. VIEW Single Product
 
-**ENDPOINT NAME** - GetProduct
-**METHOD** - GET
-**URL PATTERN** - /products/{id}
-
+**ENDPOINT NAME** - GetProduct    \n
+**METHOD** - GET                  \n
+**URL PATTERN** - /products/{id}  \n
 **USAGE**
 - Open BASE_URL/products/{id} in browser
 - **Terminal/CURL**
@@ -83,29 +82,27 @@ curl -X GET BASE_URL/products/{id}
 
 ### SEARCH Product
 
-**ENDPOINT NAME** - SearchProduct
-**METHOD** - GET
-**URL PATTERN** - /Search/{query}
-
-**USAGE** - Browser OR CURL
-**BROWSER** - 
+**ENDPOINT NAME** - SearchProduct  \n
+**METHOD** - GET                   \n
+**URL PATTERN** - /Search/{query}  \n
+**USAGE** - Browser OR curl        
+- **BROWSER**
 Open BASE_URL/Search/{query} in browser
 
-**Terminal/CURL** -
+- **Terminal/CURL**
 ```sh
 curl -X GET BASE_URL/Search/{query}
 ```
-**EXPECTED RESPONSE** - Products matching the search query
-
+**EXPECTED RESPONSE** - Products matching the search query \n
 **Example**
 
 
 ### Authentication
 For **Adding**, **Updating** and **Deleting** products from database you must send a JWT token in Authentication header.
 
-**ENDPOINT NAME** - GetToken
-**METHOD** - POST
-**URL PATTERN** - /get-token
+**ENDPOINT NAME** - GetToken \n
+**METHOD** - POST            \n
+**URL PATTERN** - /get-token \n
 **USAGE** - CURL OR POSTMAN ONLY
 - **Terminal/CURL**
 ```sh
@@ -120,9 +117,9 @@ BASE_URL/get-token
 
 ### ADD Product to Database
 
-**ENDPOINT NAME** - AddProduct
-**METHOD** - POST
-**URL PATTERN** - /AddProduct
+**ENDPOINT NAME** - AddProduct \n
+**METHOD** - POST              \n
+**URL PATTERN** - /AddProduct  \n
 
 **USAGE** - CURL OR POSTMAN ONLY
 - **Terminal/CURL**
@@ -145,9 +142,9 @@ BASE_URL/AddProduct
 
 ### UPDATE Product
 
-**ENDPOINT NAME** - UpdateProduct
-**METHOD** - PUT
-**URL PATTERN** - /UpdateProduct
+**ENDPOINT NAME** - UpdateProduct \n
+**METHOD** - PUT                  \n
+**URL PATTERN** - /UpdateProduct  \n
 **USAGE** - CURL OR POSTMAN ONLY
 - **Terminal/CURL**
 ```sh
@@ -161,16 +158,16 @@ curl -X PUT \
     }' \
 BASE_URL/UpdateProduct
 ```
-**EXPECTED RESPONSE** - Update successful without any error message. Check the logs in Terminal window which is running server.
+**EXPECTED RESPONSE** - Update successful without any error message. Check the logs in Terminal window which is running server. \n
 **Example**
 
 
 ### DELETE Product
 
 
-**ENDPOINT NAME** - DeleteProduct
-**METHOD** - DELETE
-**URL PATTERN** - /deleteProduct/{id}
+**ENDPOINT NAME** - DeleteProduct \n
+**METHOD** - DELETE \n
+**URL PATTERN** - /deleteProduct/{id} \n
 **USAGE** - CURL OR POSTMAN ONLY
 - **Terminal/CURL**
 ```sh
@@ -178,6 +175,6 @@ curl -X DELETE \
 -H "Authorization: Bearer <ACCESS_TOKEN>" \
 BASE_URL/deleteProduct/{id}
 ```
-**EXPECTED RESPONSE** - Deletion successful without any error message. Check the logs in Terminal window which is running server.
+**EXPECTED RESPONSE** - Deletion successful without any error message. Check the logs in Terminal window which is running server. \n
 **Example**
 
