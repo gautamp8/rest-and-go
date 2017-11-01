@@ -1,5 +1,5 @@
-use store;
-var bulk = db.products.initializeUnorderedBulkOp();
+use dummyStore;
+var bulk = db.store.initializeUnorderedBulkOp();
 bulk.insert(   { _id: 1, title: "Apple iMac Pro", image: "http:://example.com/p1.jpg", price: 5000, rating: 4 });
 bulk.insert(   { _id: 2, title: "Google Pixel 2", image: "http:://example.com/p2.jpg", price: 2000, rating: 5});
 bulk.insert(   { _id: 3, title: "Apple iPhone X", image: "http:://example.com/p3.jpg", price: 3000, rating: 5});
