@@ -152,7 +152,7 @@ func (c *Controller) UpdateProduct(w http.ResponseWriter, r *http.Request) {
     }
 
     if err := r.Body.Close(); err != nil {
-        log.Fatalln("Error AddUpdateProduct", err)
+        log.Fatalln("Error UpdateProduct", err)
     }
 
     if err := json.Unmarshal(body, &product); err != nil { // unmarshall body contents as a type Candidate
@@ -165,6 +165,7 @@ func (c *Controller) UpdateProduct(w http.ResponseWriter, r *http.Request) {
         }
     }
 
+    log.Println(product.ID)
     success := c.Repository.UpdateProduct(product) // updates the product in the DB
     
     if !success {

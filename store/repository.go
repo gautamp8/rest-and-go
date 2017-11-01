@@ -117,7 +117,7 @@ func (r Repository) UpdateProduct(product Product) bool {
 	session, err := mgo.Dial(SERVER)
 	defer session.Close()
 
-	session.DB(DBNAME).C(COLLECTION).UpdateId(product.ID, product)
+	err = session.DB(DBNAME).C(COLLECTION).UpdateId(product.ID, product)
 	
 	if err != nil {
 		log.Fatal(err)
