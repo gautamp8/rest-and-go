@@ -5,13 +5,15 @@ A basic online store API written to learn Go Programming Language
 [![BCH compliance](https://bettercodehub.com/edge/badge/jokamjohn/bucket_api?branch=master)](https://bettercodehub.com/)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/cfda51ef2f8946639eb34b11fa8b5480)](https://www.codacy.com/app/jokamjohn/bucket_api?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jokamjohn/bucket_api&amp;utm_campaign=Badge_Grade)
 
-This API is a pretty basic implementation of an online(e-commerce) store. It enables you to perform basic CRUD(CREATE, READ, UPDATE and DELETE) operations and SEARCH on a predefined database of products. Only Authenticated users can Add, Update and Delete products from database.
+This API is a pretty basic implementation of an online(e-commerce) store.
+- You can perform basic CRUD(CREATE, READ, UPDATE and DELETE) operations
+- SEARCH on a predefined database of products. 
+- Only Authenticated users can Add, Update and Delete products from database.
+- - Authentication is based on JWT(JSON web Tokens) Tokens
+- API is backed by a predefined MongoDB database hosted on [mLab](https://mLab.com)
+- This API also lives on [Heroku](https://www.heroku.com) - https://gruesome-monster-22811.herokuapp.com/ 
 
-API is backed by a Mongodb database hosted on [mLab](https://mLab.com) which contains the predefined list of products. Authentication is based on JWT(JSON web Tokens) Tokens
-
-If you want to try directly, API is also deployed on [Heroku](https://www.heroku.com) - https://gruesome-monster-22811.herokuapp.com/ 
-
-See [API Documentation]((#api-documentation)) below on how to use it.
+See [API Documentation and Usage](#api-documentation-and-usage) below on how to use it.
 
 ## Directory Structure
 ```
@@ -32,12 +34,56 @@ rest-and-go/
   
 ```
 
+## Setup
+
+### Golang Development Setup
+
+You can use this bash script to automate the Golang development setup - https://github.com/canha/golang-tools-install-script
+
+**Steps**
+1. Download the repository using wget 
+`wget https://raw.githubusercontent.com/canha/golang-tools-install-script/master/goinstall.sh`
+2. According to the OS you're on
+    - Linux 64 bit -> `bash goinstall.sh --64`
+    - Linux 32 bit -> `bash goinstall.sh --32`
+    - macOS -> `bash goinstall.sh --darwin`
+
+You can also follow the official [docs](https://golang.org/doc/install) of installation if you want to know the complete process.
+
+### Project setup
+
+1. Clone the repository in your `$GOPATH/src/` directory. If you have used the bash script for setup, your `$GOPATH` variable should point to `$HOME/go`
+2. **Follow the steps 2-6 only if you have to set-up databse by yourself**. The MongoDB database is hosted on mLab free trial account for now and might expire. In that case, you'll need the steps below.
+3. To run project locally, Install Mongo DB - https://www.mongodb.com/download-center?jmp=nav#community
+4. After installing Mongo DB, start it's server by typing `mongod` in Terminal.
+5. Open a new tab in terminal and type `mongo < dummyData.js` to insert the dummmy product data.
+6. Open file `store/repository.go`, find the `SERVER` variable and replace the URL. 
+
+```
+const SERVER = "http://localhost:27017"
+```
+7. Last thing required to run the project, install all the go dependencies
+```
+// Library to handle jwt authentication 
+$ go get "github.com/dgrijalva/jwt-go"
+
+// Libraries to handle network routing
+$ go get "github.com/gorilla/mux"
+$ go get "github.com/gorilla/context"
+$ go get "github.com/gorilla/handlers"
+
+// mgo library for handling MONGO DB
+$ go get "gopkg.in/mgo.v2"
+```
+Yay! Now we're ready to run the API :tada:
+8. Type `export PORT=8000` in Terminal and open http://localhost:8000 in your browser to see the products.
 
 ## API Documentation and Usage
 
 It is **recommended** to install some extension to beautify JSON(like [JSON Formatter](https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa)) if you're trying in a browser.
 
-// TODO: export PORT
+**Important** - Don't forget to define $PORT in your shell variables. <br>Example: `export PORT=8000`
+
 ```sh
 BASE_URL = "http://localhost:$PORT"
 'OR'
@@ -46,9 +92,9 @@ BASE_URL = https://gruesome-monster-22811.herokuapp.com/
 
 ### 1. View Products
 
-- **Endpoint Name** - Index      <br>
-- **Method** - GET               <br>
-- **URL Pattern** - /            <br>
+- **Endpoint Name** - `Index`      <br>
+- **Method** - `GET`               <br>
+- **URL Pattern** - `/`            <br>
 - **Usage** 
     - Open BASE_URL in browser
     - **Terminal/CURL**
@@ -62,9 +108,9 @@ BASE_URL = https://gruesome-monster-22811.herokuapp.com/
 
 ### 2. View Single Product
 
-- **Endpoint Name** - GetProduct    <br>
-- **Method** - GET                  <br>
-- **URL Pattern** - /products/{id}  <br>
+- **Endpoint Name** - `GetProduct`    <br>
+- **Method** - `GET`                  <br>
+- **URL Pattern** - `/products/{id}`  <br>
 - **Usage**
     - Open BASE_URL/products/{id} in browser
     - **Terminal/CURL**
@@ -77,9 +123,9 @@ curl -X GET BASE_URL/products/{id}
 
 ### 3. Search Product
 
-- **Endpoint Name** - SearchProduct  <br>
-- **Method** - GET                   <br>
-- **URL Pattern** - /Search/{query}  <br>
+- **Endpoint Name** - `SearchProduct`  <br>
+- **Method** - `GET`                   <br>
+- **URL Pattern** - `/Search/{query}`  <br>
 - **Usage** - Browser OR curl        
 - **BROWSER**
     - Open BASE_URL/Search/{query} in browser
@@ -93,9 +139,9 @@ curl -X GET BASE_URL/products/{id}
 ### 4. Authentication
 For **Adding**, **Updating** and **Deleting** products from database you must send a JWT token in Authentication header.
 
-- **Endpoint Name** - GetToken <br>
-- **Method** - POST            <br>
-- **URL Pattern** - /get-token <br>
+- **Endpoint Name** - `GetToken` <br>
+- **Method** - `POST`            <br>
+- **URL Pattern** - `/get-token` <br>
 - **Usage** - CURL OR POSTMAN ONLY
     - **Terminal/CURL**
     ```sh
@@ -109,9 +155,9 @@ For **Adding**, **Updating** and **Deleting** products from database you must se
 
 ### 5. Add Product
 
-- **Endpoint Name** - AddProduct <br>
-- **Method** - POST              <br>
-- **URL Pattern** - /AddProduct  <br>
+- **Endpoint Name** - `AddProduct` <br>
+- **Method** - `POST`              <br>
+- **URL Pattern** - `/AddProduct`  <br>
 - **Usage** - CURL OR POSTMAN ONLY
     - **Terminal/CURL**
     ```sh
@@ -131,9 +177,9 @@ For **Adding**, **Updating** and **Deleting** products from database you must se
 
 ### 6. Update Product
 
-- **Endpoint Name** - UpdateProduct <br>
-- **Method** - PUT                  <br>
-- **URL Pattern** - /UpdateProduct  <br>
+- **Endpoint Name** - `UpdateProduct` <br>
+- **Method** - `PUT`                  <br>
+- **URL Pattern** - `/UpdateProduct`  <br>
 - **Usage** - CURL OR POSTMAN ONLY
     - **Terminal/CURL**
     ```sh
@@ -152,9 +198,9 @@ For **Adding**, **Updating** and **Deleting** products from database you must se
 
 ### 7. Delete Product
 
-- **Endpoint Name** - DeleteProduct <br>
-- **Method** - DELETE <br>
-- **URL Pattern** - /deleteProduct/{id} <br>
+- **Endpoint Name** - `DeleteProduct` <br>
+- **Method** - `DELETE` <br>
+- **URL Pattern** - `/deleteProduct/{id}` <br>
 - **Usage** - CURL OR POSTMAN ONLY
     - **Terminal/CURL**
     ```sh
@@ -164,4 +210,14 @@ For **Adding**, **Updating** and **Deleting** products from database you must se
     ```
 - **Expected Response** - Deletion successful without any error message. Check the logs in Terminal window which is running server. <br>
 - **Example**
+
+
+## TODO
+* [ ] Write unit tests to test every method
+* [ ] Improve the code by proper exception handling
+* [ ] Create a REST API server project using this package as a boilerplate
+* [ ] User and roles management
+* [ ] Session management using JWT tokens
+
+
 
