@@ -1,10 +1,7 @@
 {
-	"ImportPath": "Bingo",
+	"ImportPath": "rest-and-go",
 	"GoVersion": "go1.9",
 	"GodepVersion": "v79",
-	"Packages": [
-		"./..."
-	],
 	"Deps": [
 		{
 			"ImportPath": "github.com/dgrijalva/jwt-go",

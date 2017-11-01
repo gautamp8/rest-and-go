@@ -1,1 +1,1 @@
-main: Bingo
+web: rest-and-go

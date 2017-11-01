@@ -1,5 +1,4 @@
 // Entrypoint for API
-
 package main
 
 import (
@@ -7,10 +6,16 @@ import (
  	"net/http"
  	"os"
 	"github.com/gorilla/handlers"
-	"Bingo/store"
+	"rest-and-go/store"
 )
 
 func main() {
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		log.Fatal("$PORT must be set")
+	}
+
 	router := store.NewRouter() // create routes
 
 	// These two lines are important in order to allow access from the front-end side to the methods
@@ -18,5 +23,5 @@ func main() {
  	allowedMethods := handlers.AllowedMethods([]string{"GET", "POST", "DELETE", "PUT"})
 
 	// Launch server with CORS validations
- 	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), handlers.CORS(allowedOrigins, allowedMethods)(router)))
+ 	log.Fatal(http.ListenAndServe(":" + port, handlers.CORS(allowedOrigins, allowedMethods)(router)))
 }
