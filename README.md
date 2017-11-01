@@ -1,10 +1,6 @@
 # rest-and-go
 A basic online store API written to learn Go Programming Language
 
-[![Build Status](https://travis-ci.org/jokamjohn/bucket_api.svg?branch=master)](https://travis-ci.org/jokamjohn/bucket_api)
-[![BCH compliance](https://bettercodehub.com/edge/badge/jokamjohn/bucket_api?branch=master)](https://bettercodehub.com/)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/cfda51ef2f8946639eb34b11fa8b5480)](https://www.codacy.com/app/jokamjohn/bucket_api?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jokamjohn/bucket_api&amp;utm_campaign=Badge_Grade)
-
 This API is a pretty basic implementation of an online(e-commerce) store.
 - You can perform basic CRUD(CREATE, READ, UPDATE and DELETE) operations
 - SEARCH on a predefined database of products 
@@ -215,6 +211,7 @@ For **Adding**, **Updating** and **Deleting** products from database you must se
 ## TODO
 * [ ] Write unit tests to test every method
 * [ ] Improve the code by proper exception handling
+* [ ] Add repository badges like TravisCI, Better Code, Codacy etc.
 * [ ] Create a REST API server project using this package as a boilerplate
 * [ ] User and roles management
 * [ ] Session management using JWT tokens
