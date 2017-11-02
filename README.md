@@ -99,7 +99,7 @@ BASE_URL = https://gruesome-monster-22811.herokuapp.com/
     ```
 - **Expected Response** - JSON containing all the products in database <br>
 - **Example**
-![Screenshot](https://s19.postimg.org/d4u9dczr7/Screen_Shot_2017-11-01_at_11.46.12_AM.png)
+![Screenshot](/screenshots/All-Products.png?raw=true)
 
 ### 2. View Single Product
 
@@ -115,7 +115,7 @@ curl -X GET BASE_URL/products/{id}
 - **Expected Response** - Product with the {id} in database
 - **NOTE** - There are only six(6) ids in the database, so 1 <= {id} <= 6   
 - **Example**
-![Screenshot]()
+![Screenshot](/screenshots/GetProduct-Request.png)
 
 ### 3. Search Product
 
@@ -131,7 +131,7 @@ curl -X GET BASE_URL/products/{id}
     ```
 - **Expected Response** - Products matching the search query <br>
 - **Example**
-![Screenshot](http://url/to/img.png)
+![Screenshot](/screenshots/Search-Request.png)
 
 ### 4. Authentication
 For **Adding**, **Updating** and **Deleting** products from database you must send a JWT token in Authentication header.
@@ -149,7 +149,7 @@ For **Adding**, **Updating** and **Deleting** products from database you must se
     ```
 - **Expected Response** - A JWT Authentication Token as shown below
 - **Example**
-![Screenshot](https://s19.postimg.org/lacbbivpv/Screen_Shot_2017-11-01_at_1.56.03_PM.png)
+![Screenshot](/screenshots/Authentication-Request.png)
 
 ### 5. Add Product
 
@@ -171,7 +171,7 @@ For **Adding**, **Updating** and **Deleting** products from database you must se
     ```
 - **Expected Response** - Addition successful without any error message. Check the logs in Terminal window which is running server. 
 - **Example**
-![Screenshot](https://s19.postimg.org/9l8bnkzmb/Screen_Shot_2017-11-01_at_2.20.54_PM.png)
+![Screenshot](/screenshots/AddProduct-Request.png)
 
 ### 6. Update Product
 
@@ -193,7 +193,7 @@ For **Adding**, **Updating** and **Deleting** products from database you must se
     ```
 - **Expected Response** - Update successful without any error message. Check the logs in Terminal window which is running server. <br>
 - **Example**
-![Screenshot](https://s19.postimg.org/5c3lleon7/Screen_Shot_2017-11-01_at_6.40.09_PM.png)
+![Screenshot](/screenshots/Update-Request.png)
 
 ### 7. Delete Product
 
@@ -209,7 +209,7 @@ For **Adding**, **Updating** and **Deleting** products from database you must se
     ```
 - **Expected Response** - Deletion successful without any error message. Check the logs in Terminal window which is running server. <br>
 - **Example**
-![Screenshot](https://s19.postimg.org/t32z3i9er/Screen_Shot_2017-11-01_at_6.47.21_PM.png)
+![Screenshot](/screenshots/Delete-Request.png)
 
 ## TODO
 * [ ] Write unit tests to test every method
