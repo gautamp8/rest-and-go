@@ -14,19 +14,19 @@ See [API Documentation and Usage](#api-documentation-and-usage) below on how to 
 ## Directory Structure
 ```
 rest-and-go/
-    |- Godeps             - Contains info about all dependencies of the project
-    |- store              - Contains main API logic files 
+    |- Godeps/             - Contains info about all dependencies of the project
+    |- store/              - Contains main API logic files 
         |- controller.go  - Defines methods handling calls at various endpoints
         |- model.go       - User and Product models
         |- repository.go  - Methods interacting with the database
         |- router.go      - Defines routes and endpoints
-    |- vendor             - Dependency packages, necessary for deployment
-  |- .gitignore
-  |- LICENSE
-  |- Procfile             - Procfile for herkou deployment
-  |- README.md
-  |- dummyData.js         - Script to populate local mongodb with dummy data
-  |- main.go              - Entry point of the API
+    |- vendor/             - Dependency packages, necessary for deployment
+    |- .gitignore
+    |- LICENSE
+    |- Procfile             - Procfile for herkou deployment
+    |- README.md
+    |- dummyData.js         - Script to populate local mongodb with dummy data
+    |- main.go              - Entry point of the API
   
 ```
 
