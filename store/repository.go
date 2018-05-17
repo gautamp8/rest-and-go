@@ -15,7 +15,7 @@ type Repository struct{}
 const SERVER = "mongodb://gautam:gautam@ds157233.mlab.com:57233/dummystore"
 
 // DBNAME the name of the DB instance
-const DBNAME = "dummystore"
+const DBNAME = "dummyStore"
 
 // COLLECTION is the name of the collection in DB
 const COLLECTION = "store"
