@@ -1,4 +1,4 @@
-# rest-and-go
+# rest-and-go(Not maintained actively)
 A basic online store API written to learn Go Programming Language
 
 This API is a pretty basic implementation of an online(e-commerce) store.
