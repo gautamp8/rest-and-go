@@ -56,7 +56,7 @@ You can also follow the official [docs](https://golang.org/doc/install) of insta
 6. Open file `store/repository.go`, find the `SERVER` variable and replace the URL. 
 
 ```
-const SERVER = "http://localhost:27017"
+const SERVER = "mongodb://localhost:27017"
 ```
 7. Last thing required to run the project, install all the go dependencies
 ```
